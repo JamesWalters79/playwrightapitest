@@ -19,7 +19,18 @@ Given('the Asteroids API is queried with no search parameters', async function (
     response = await apiContext.get(BASE_API_URL, { params: searchParams });
 });
 
-Then('the response status code is {string}', async function (status_code) {
-    const responseCode = await response.status();
-    await expect(responseCode.toString()).toEqual(status_code);
+Then('the response status is {int}', async function (status) {
+    expect(response.ok()).toBeTruthy();
+    expect(response.status()).toBe(status);
+});
+
+Then('many asteroids are returned', async function () {           
+    const responseBody = await response.json();
+    expect(responseBody.element_count).toBeGreaterThan(0);
+});
+
+Then('the asteroid count is between {int} and {int}', async function (min,max) {
+    const responseBody = await response.json();
+    expect(responseBody.element_count).toBeGreaterThan(min);
+    expect(responseBody.element_count).toBeLessThan(max);
 });
