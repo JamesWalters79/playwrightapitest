@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "@cucumber/cucumber": "^11.0.1",
     "@types/node": "^20.4.2",
     "playwright": "^1.47.2"
   },
@@ -13,7 +14,6 @@
   "license": "ISC",
   "description": "",
   "devDependencies": {
-    "@cucumber/cucumber": "^9.6.0",
     "@playwright/test": "^1.47.2",
     "ts-node": "^10.9.2"
   }
