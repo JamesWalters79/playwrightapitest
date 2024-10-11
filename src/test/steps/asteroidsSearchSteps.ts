@@ -1,4 +1,4 @@
-import { Given, When, Then, Before } from '@cucumber/cucumber';
+import { Given, When, Then, Before, After } from '@cucumber/cucumber';
 import { BeforeAll } from '@cucumber/cucumber';
 
 import { request, APIRequestContext, APIResponse, expect } from '@playwright/test';
@@ -11,54 +11,51 @@ const BASE_API_LOOKUP_URL = "https://api.nasa.gov/neo/rest/v1/neo/";
 
 let apiContext: APIRequestContext;
 let response: APIResponse;
+let searchParams: URLSearchParams;
 
 Before(async () => {
     apiContext = await request.newContext();
+    searchParams = new URLSearchParams();
+    searchParams.set('api_key', ASTEROIDS_API_KEY);
+});
+
+After(async () => {
+    apiContext.dispose();
+    searchParams.delete('api_key');
+    searchParams.delete('start_date');
+    searchParams.delete('end_date');
 });
 
 Given('the Asteroids API is queried with no search parameters', async function () {    
-    const searchParams = new URLSearchParams();
-    searchParams.set('api_key', ASTEROIDS_API_KEY);
     response = await apiContext.get(BASE_API_FEED_URL, { params: searchParams });
 });
 
 Given('the Asteroids API is queried with an invalid token', async function () {    
-    const searchParams = new URLSearchParams();
     searchParams.set('api_key', INVALID_ASTEROIDS_API_KEY);
     response = await apiContext.get(BASE_API_FEED_URL, { params: searchParams });
 });
 
 Given('the Asteroids API is queried with start date {string}', async function (start_date) {    
-    const searchParams = new URLSearchParams();
-    searchParams.set('api_key', ASTEROIDS_API_KEY);
     searchParams.append('start_date',start_date);
     response = await apiContext.get(BASE_API_FEED_URL, { params: searchParams });
 });
 
 Given('the Asteroids API is queried with end date {string}', async function (end_date) {    
-    const searchParams = new URLSearchParams();
-    searchParams.set('api_key', ASTEROIDS_API_KEY);
     searchParams.append('end_date',end_date);
     response = await apiContext.get(BASE_API_FEED_URL, { params: searchParams });
 });
 
 Given('the Asteroids API is queried with start date {string} and end date {string}', async function (start_date,end_date) {    
-    const searchParams = new URLSearchParams();
-    searchParams.set('api_key', ASTEROIDS_API_KEY);
     searchParams.append('start_date',start_date);
     searchParams.append('end_date',end_date);
     response = await apiContext.get(BASE_API_FEED_URL, { params: searchParams });
 });
 
 Given('the Asteroids API is browsed', async function () {    
-    const searchParams = new URLSearchParams();
-    searchParams.set('api_key', ASTEROIDS_API_KEY);
     response = await apiContext.get(BASE_API_BROWSE_URL, { params: searchParams });
 });
 
 Given('the Asteroids API is asked for an asteroid with ID {string}', async function (ID) {    
-    const searchParams = new URLSearchParams();
-    searchParams.set('api_key', ASTEROIDS_API_KEY);
     response = await apiContext.get(BASE_API_LOOKUP_URL + ID, { params: searchParams });
 });
 
