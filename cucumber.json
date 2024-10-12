@@ -1,5 +1,6 @@
 {
     "default": {
+        "parallel": 2,
         "formatOptions": {
             "snippetInterface": "async-await"
         },
@@ -15,7 +16,7 @@
             "ts-node/register"
         ],
         "format": [
-            "html:test-results/cucumber-report.html"
+            "allure-cucumberjs/reporter"
         ]
-    }
+    }    
 }

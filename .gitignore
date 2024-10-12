@@ -1,8 +1,9 @@
-node_modules/
+/node_modules/
+/allure-results/
+/pages/
 /test-results/
 /playwright-report/
 /playwright/.cache/
-1
 tests-examples/demo-todo-app.spec.ts
 tests/example.spec.ts
 playwright.config.ts
