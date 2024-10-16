@@ -1,6 +1,4 @@
 import { Given, When, Then, Before, After } from '@cucumber/cucumber';
-import * as dotenv from 'dotenv';
-
 import { request, APIRequestContext, APIResponse, expect } from '@playwright/test';
 
 const BASE_API_FEED_URL = "https://api.nasa.gov/neo/rest/v1/feed";
@@ -12,7 +10,6 @@ let response: APIResponse;
 let searchParams: URLSearchParams;
 
 Before(async () => {
-    dotenv.config();
     apiContext = await request.newContext();
     searchParams = new URLSearchParams();
     searchParams.set('api_key', `${process.env.VALID_API_KEY}`);

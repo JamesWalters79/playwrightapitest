@@ -9,7 +9,8 @@
             "src/test/features/"
         ],
         "require": [
-            "src/test/steps/*.ts"
+            "src/test/steps/*.ts",
+            "src/test/support/*.ts"
         ],
         "requireModule": [
             "ts-node/register"
