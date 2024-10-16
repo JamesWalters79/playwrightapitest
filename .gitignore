@@ -5,7 +5,7 @@
 /test-results/
 /playwright-report/
 /playwright/.cache/
-tests-examples/demo-todo-app.spec.ts
-tests/example.spec.ts
+/tests-examples/
+/tests/
 playwright.config.ts
 .env
