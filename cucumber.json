@@ -4,7 +4,6 @@
         "formatOptions": {
             "snippetInterface": "async-await"
         },
-        "publishQuiet": true,
         "dryRun": false,
         "paths": [
             "src/test/features/"
@@ -16,7 +15,7 @@
             "ts-node/register"
         ],
         "format": [
-            "allure-cucumberjs/reporter"
+            "allure-cucumberjs/reporter"           
         ]
     }    
 }
