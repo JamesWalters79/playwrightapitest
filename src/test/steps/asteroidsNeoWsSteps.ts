@@ -23,39 +23,46 @@ After(async () => {
 });
 
 Given('the Asteroids API is queried with no search parameters', async function () {    
-    response = await apiContext.get(BASE_API_FEED_URL, { params: searchParams });
+    response = await apiContext.get(BASE_API_FEED_URL, { params: searchParams });    
+    this.attach(JSON.stringify(await response.json()), { mediaType: 'application/json' });    
 });
 
 Given('the Asteroids API is queried with an invalid token', async function () {    
     searchParams.set('api_key',  `${process.env.INVALID_API_KEY}`);
     response = await apiContext.get(BASE_API_FEED_URL, { params: searchParams });
+    this.attach(JSON.stringify(await response.json()), { mediaType: 'application/json' });
 });
 
 Given('the Asteroids API is queried with start date {string}', async function (start_date) {    
     searchParams.append('start_date',start_date);
     response = await apiContext.get(BASE_API_FEED_URL, { params: searchParams });
+    this.attach(JSON.stringify(await response.json()), { mediaType: 'application/json' });
 });
 
 Given('the Asteroids API is queried with end date {string}', async function (end_date) {    
     searchParams.append('end_date',end_date);
     response = await apiContext.get(BASE_API_FEED_URL, { params: searchParams });
+    this.attach(JSON.stringify(await response.json()), { mediaType: 'application/json' });
 });
 
 Given('the Asteroids API is queried with start date {string} and end date {string}', async function (start_date,end_date) {    
     searchParams.append('start_date',start_date);
     searchParams.append('end_date',end_date);
     response = await apiContext.get(BASE_API_FEED_URL, { params: searchParams });
+    this.attach(JSON.stringify(await response.json()), { mediaType: 'application/json' });
 });
 
 Given('the Asteroids API is browsed', async function () {    
     response = await apiContext.get(BASE_API_BROWSE_URL, { params: searchParams });
+    this.attach(JSON.stringify(await response.json()), { mediaType: 'application/json' });
 });
 
 Given('the Asteroids API is asked for an asteroid with ID {string}', async function (ID) {    
     response = await apiContext.get(BASE_API_LOOKUP_URL + ID, { params: searchParams });
+    this.attach(JSON.stringify(await response.json()), { mediaType: 'application/json' });
 });
 
-Then('the response status is {int}', async function (status) {    
+Then('the response status is {int}', async function (status) {
     expect(response.status()).toBe(status);
 });
 
@@ -76,6 +83,6 @@ Then('the HTTP error is {string}', async function (error) {
 });
 
 Then('the error message is {string}', async function (message) {
-    const responseBody = await response.json();
+    const responseBody = await response.json();    
     expect(responseBody.error_message).toBe(message);    
 });
