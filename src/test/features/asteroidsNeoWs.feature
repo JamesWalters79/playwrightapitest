@@ -51,3 +51,4 @@ Scenario: Asteroids API browse
 Scenario: Asteroids API lookup by ID
     Given the Asteroids API is asked for an asteroid with ID "3542519"
     Then the response status is 200
+    And the correct asteroid is returned "3542519"

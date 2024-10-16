@@ -86,3 +86,9 @@ Then('the error message is {string}', async function (message) {
     const responseBody = await response.json();    
     expect(responseBody.error_message).toBe(message);    
 });
+
+Then('the correct asteroid is returned {string}', async function (ID) {
+    const responseBody = await response.json();    
+    expect(responseBody).toEqual(require('../../../data/asteroidID_' + ID + '.json'));
+    expect(responseBody).not.toBe(require('../../../data/asteroidID_' + ID + '.json'));
+});
