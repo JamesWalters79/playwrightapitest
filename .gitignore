@@ -8,3 +8,4 @@
 tests-examples/demo-todo-app.spec.ts
 tests/example.spec.ts
 playwright.config.ts
+.env

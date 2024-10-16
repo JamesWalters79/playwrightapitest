@@ -1,10 +1,8 @@
 import { Given, When, Then, Before, After } from '@cucumber/cucumber';
-import { BeforeAll } from '@cucumber/cucumber';
+import * as dotenv from 'dotenv';
 
 import { request, APIRequestContext, APIResponse, expect } from '@playwright/test';
 
-const ASTEROIDS_API_KEY = "4oHMkn6CWYCvBFcX5GWusj5pNGgLFTY1LiWgg2n5";
-const INVALID_ASTEROIDS_API_KEY = "12345";
 const BASE_API_FEED_URL = "https://api.nasa.gov/neo/rest/v1/feed";
 const BASE_API_BROWSE_URL = "https://api.nasa.gov/neo/rest/v1/neo/browse";
 const BASE_API_LOOKUP_URL = "https://api.nasa.gov/neo/rest/v1/neo/";
@@ -14,9 +12,10 @@ let response: APIResponse;
 let searchParams: URLSearchParams;
 
 Before(async () => {
+    dotenv.config();
     apiContext = await request.newContext();
     searchParams = new URLSearchParams();
-    searchParams.set('api_key', ASTEROIDS_API_KEY);
+    searchParams.set('api_key', `${process.env.VALID_API_KEY}`);
 });
 
 After(async () => {
@@ -31,7 +30,7 @@ Given('the Asteroids API is queried with no search parameters', async function (
 });
 
 Given('the Asteroids API is queried with an invalid token', async function () {    
-    searchParams.set('api_key', INVALID_ASTEROIDS_API_KEY);
+    searchParams.set('api_key',  `${process.env.INVALID_API_KEY}`);
     response = await apiContext.get(BASE_API_FEED_URL, { params: searchParams });
 });
 
